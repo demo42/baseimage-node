@@ -7,7 +7,7 @@ https://github.com/demo42/baseimage-node
 ## Setup defaults
 
 ```sh
-export DEMO_NAME=demo43
+export DEMO_NAME=demo42
 export ACR_NAME=$DEMO_NAME
 export AKV_NAME=$DEMO_NAME
 export LOCATION=eastus
@@ -30,19 +30,31 @@ az acr create -n $ACR_NAME -l $LOCATION -g $RESOURCE_GROUP --sku standard
 - Copy the PAT
 
 ## Azure KeyVault
+
 - Create the KeyVault
+
     ```sh
     az keyvault create --resource-group $RESOURCE_GROUP --name $AKV_NAME
-
     ```
+
 - Save the Github Personal Access Token
-    
+
     ```sh
     az keyvault secret set \
         --vault-name $AKV_NAME \
         --name $GIT_TOKEN_NAME \
         --value <past-PAT-value>
     ```
+
+- Verify the values were saved
+
+    ```sh
+    az keyvault secret show \
+                         --vault-name $AKV_NAME \
+                         --name $GIT_TOKEN_NAME \
+                         --query value -o tsv
+    ```
+
 ## Create the Task
 
 ```sh
@@ -55,10 +67,10 @@ az acr task create \
                          --vault-name $AKV_NAME \
                          --name $GIT_TOKEN_NAME \
                          --query value -o tsv)
-
 ```
 
 ## Manually Trigger a Build
+
 ```sh
 az acr build-task run -n baseimagenode
 ```
