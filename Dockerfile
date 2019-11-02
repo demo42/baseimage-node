@@ -1,3 +1,1 @@
-FROM node:9-alpine
-ENV NODE_VERSION 9.1-alpine
-ENV BACKGROUND_COLOR=green
+FROM demo42.azurecr.io/staging-artifacts/node:9-alpine
