@@ -8,11 +8,11 @@ https://github.com/demo42/baseimage-node
 
 ```sh
 export DEMO_NAME=demo42
-export ACR_NAME=$DEMO_NAME
-export AKV_NAME=$DEMO_NAME
-export LOCATION=eastus
+export ACR_NAME=demo42t
+export AKV_NAME=demo42
+export LOCATION=southcentralus
 export RESOURCE_GROUP=$DEMO_NAME
-export BASE_IMAGE_REPO=https://github.com/demo42/baseimage-node
+export BASE_IMAGE_NODE_REPO=https://github.com/demo42/baseimage-node.git
 export GIT_TOKEN_NAME=${DEMO_NAME}-git-token
 
 az configure --defaults acr=$ACR_NAME
@@ -24,7 +24,7 @@ az configure --defaults acr=$ACR_NAME
 az acr create -n $ACR_NAME -l $LOCATION -g $RESOURCE_GROUP --sku standard
 ```
 
-## Create a Personal Access Token 
+## Create a Personal Access Token
 
 - See [ACR Build Docs](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tutorial-build-task#create-a-github-personal-access-token) for specific permissions
 - Copy the PAT
@@ -59,10 +59,9 @@ az acr create -n $ACR_NAME -l $LOCATION -g $RESOURCE_GROUP --sku standard
 
 ```sh
 az acr task create \
-  -n baseimage-node \
-  -f Dockerfile \
-  --context $BASE_IMAGE_REPO \
-  -t baseimages/node:9-alpine \
+  -n base-image-node \
+  -f acr-task.yaml \
+  --context $BASE_IMAGE_NODE_REPO \
   --git-access-token $(az keyvault secret show \
                          --vault-name $AKV_NAME \
                          --name $GIT_TOKEN_NAME \
@@ -72,5 +71,5 @@ az acr task create \
 ## Manually Trigger a Build
 
 ```sh
-az acr build-task run -n baseimagenode
+az acr build-task run -n base-image-node
 ```
