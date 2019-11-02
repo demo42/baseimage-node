@@ -1,5 +1,5 @@
 version: 1.0.0
 steps:
   - run: bash ls
-  - run: build -t baseimages/node:alpine -f ./Dockerfile .
+  - run: build -t base-artifacts/node:alpine -f ./Dockerfile .
   - run: docker images

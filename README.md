@@ -12,7 +12,7 @@ export ACR_NAME=demo42t
 export AKV_NAME=demo42
 export LOCATION=southcentralus
 export RESOURCE_GROUP=$DEMO_NAME
-export BASE_IMAGE_NODE_REPO=https://github.com/demo42/baseimage-node.git
+export GIT_BASE_IMAGE_NODE=https://github.com/demo42/baseimage-node.git
 export GIT_TOKEN_NAME=${DEMO_NAME}-git-token
 
 az configure --defaults acr=$ACR_NAME
