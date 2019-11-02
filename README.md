@@ -59,6 +59,7 @@ az acr create -n $ACR_NAME -l $LOCATION -g $RESOURCE_GROUP --sku standard
 
 ```sh
 az acr task create \
+  --registry ${ACR_NAME} \
   -n base-image-node \
   -f acr-task.yaml \
   --context $BASE_IMAGE_NODE_REPO \
@@ -71,5 +72,5 @@ az acr task create \
 ## Manually Trigger a Build
 
 ```sh
-az acr build-task run -n base-image-node
+az acr task run --registry demo42t -n base-image-node
 ```
