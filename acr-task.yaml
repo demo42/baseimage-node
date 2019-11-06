@@ -1,9 +1,10 @@
 version: v1.0.0
 steps:
+  - cmd ""
   - build: >
-      -t {{.Run.Registry}}/base-artifacts/node:{{.Run.ID}}
-      -t {{.Run.Registry}}/base-artifacts/node:9-alpine
       -f ./Dockerfile
+      -t {{.Run.Registry}}/base-images/node:{{.Run.ID}}
+      -t {{.Run.Registry}}/base-images/node:9-alpine
       .
   - push: 
     - "{{.Run.Registry}}/base-artifacts/node:{{.Run.ID}}"
